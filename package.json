@@ -1,20 +1,92 @@
 {
   "name": "cra-template-solidity",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/react-declarative/cra-template-solidity.git"
-  },
-  "keywords": [],
+  "version": "0.0.2",
+  "description": "A Ethereum starter kit for rapid development of the proof of concept solidity app",
+  "keywords": [
+    "react",
+    "create-react-app",
+    "typescript",
+    "mui",
+    "material-ui",
+    "mobx",
+    "msw",
+    "mock",
+    "mocking",
+    "state-management",
+    "form-validation",
+    "layout-engine",
+    "grid-system",
+    "declarative-programming",
+    "json-endpoint",
+    "crm",
+    "ux"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/react-declarative/cra-template-solidity/issues"
+    "url": "https://github.com/react-declarative/cra-template-react-declarative/issues"
   },
-  "homepage": "https://github.com/react-declarative/cra-template-solidity#readme"
+  "homepage": "https://github.com/react-declarative/cra-template-react-declarative#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-declarative/cra-template-react-declarative.git"
+  },
+  "scripts": {
+    "start": "webpack-cli serve",
+    "test": "rimraf test && npx create-react-app test --template=file:./",
+    "msw-init": "npx msw init template/public/ --save"
+  },
+  "devDependencies": {
+    "esbuild-loader": "2.19.0",
+    "fork-ts-checker-webpack-plugin": "7.2.13",
+    "html-webpack-plugin": "5.5.0",
+    "rimraf": "3.0.2",
+    "typescript": "4.7.4",
+    "webpack": "5.74.0",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.10.0"
+  },
+  "dependencies": {
+    "@emotion/react": "11.10.4",
+    "@emotion/styled": "11.10.4",
+    "@mui/icons-material": "5.10.6",
+    "@mui/material": "5.10.8",
+    "@types/node": "16.11.51",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "@types/react-window": "1.8.5",
+    "@types/uuid": "8.3.4",
+    "clsx": "1.2.1",
+    "dayjs": "1.11.5",
+    "history": "5.3.0",
+    "mobx": "6.6.2",
+    "mobx-react": "7.5.3",
+    "msw": "0.47.3",
+    "notistack": "2.0.5",
+    "path-to-regexp": "6.2.0",
+    "react": "18.2.0",
+    "react-declarative": "2.1.22",
+    "react-dom": "18.2.0",
+    "react-window": "1.8.7",
+    "resize-observer-polyfill": "1.5.1",
+    "tss-react": "4.3.4",
+    "uuid": "8.3.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "import/no-anonymous-default-export": "off",
+      "new-parens": "off"
+    }
+  },
+  "files": [
+    "template",
+    "template.json"
+  ],
+  "msw": {
+    "workerDirectory": "template/public"
+  }
 }
