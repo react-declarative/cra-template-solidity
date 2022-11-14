@@ -1,7 +1,7 @@
 {
     "package": {
       "scripts": {
-        "msw-init": "npx msw init public/ --save"
+        "start": "REACT_APP_STAGE=dev react-scripts start"
       },
       "devDependencies": {
         "@types/uuid": "8.3.4",
@@ -28,7 +28,6 @@
         "mobx": "6.6.2",
         "mobx-react": "7.5.3",
         "uuid": "9.0.0",
-        "msw": "0.47.3",
         "notistack": "2.0.5",
         "clsx": "1.2.1"
       },

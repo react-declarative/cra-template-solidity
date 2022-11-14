@@ -35,12 +35,11 @@ npx create-react-app . --template=solidity
 3. [MUI](https://mui.com/)
 4. [Mobx](https://mobx.js.org/)
 5. [react-declarative](https://www.npmjs.com/package/react-declarative)
+6. [tss-react](https://www.npmjs.com/package/tss-react)
 
 <img src="./docs/cubes.svg" height="25px" align="right">
 
 ## Code samples
-
-
 
 ```tsx
 
@@ -53,7 +52,3 @@ npx create-react-app . --template=solidity
 ## See also
 
 This starter kit is build on top of [react-declarative](https://www.npmjs.com/package/react-declarative) npm package. I think you are going to like the way of reactive programming in this app and you will want bring it to other projects which may not require web3 technologies. So check the [github repo](https://github.com/react-declarative/react-declarative) and seek for other guides
-
-```bash
-npm install react-declarative @mui/material @emotion/react @emotion/styled
-```

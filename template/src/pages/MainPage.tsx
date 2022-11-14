@@ -3,10 +3,9 @@ import { List, FieldType, ColumnType, ActionType, TypedField, IColumn, IListActi
 import Delete from '@mui/icons-material/Delete';
 import Add from '@mui/icons-material/Add';
 
-import fetchApi from '../../helpers/fetchApi';
-import history from '../../helpers/history';
+import { observer } from 'mobx-react';
 
-import useLoader from '../../hooks/useLoader';
+import ioc from '../lib/ioc';
 
 const filters: TypedField[] = [
     {
@@ -54,6 +53,7 @@ const columns: IColumn[] = [
 const actions: IListAction[] = [
     {
         type: ActionType.Add,
+        action: 'add-action',
     },
     {
         type: ActionType.Menu,
@@ -65,9 +65,6 @@ const actions: IListAction[] = [
             },
             {
                 action: 'update-now',
-            },
-            {
-                action: 'resort-action',
             },
         ],
     }
@@ -81,15 +78,13 @@ const rowActions = [
     },
 ];
 
-const heightRequest = () => window.innerHeight - 75;
+const heightRequest = () => window.innerHeight - 10;
 
-export const TodoListPage = () => {
+export const MainPage = observer(() => {
 
-    const { setLoader } = useLoader();
-
-    const handler = useArrayPaginator(async () => await fetchApi('/api/v1/todos'), {
-        onLoadStart: () => setLoader(true),
-        onLoadEnd: () => setLoader(false),
+    const handler = useArrayPaginator(async () => [], {
+        onLoadStart: () => ioc.layoutService.setAppbarLoader(true),
+        onLoadEnd: () => ioc.layoutService.setAppbarLoader(false),
     });
 
     const handleRowActionsClick = (action: string, row: any) => {
@@ -98,10 +93,6 @@ export const TodoListPage = () => {
 
     const handleAction = (action: string) => {
         alert(action);
-    };
-
-    const handleClick = (row: any) => {
-        history.push(`/todos/${row.id}`);
     };
 
     return (
@@ -115,11 +106,10 @@ export const TodoListPage = () => {
             columns={columns}
             handler={handler}
             onRowAction={handleRowActionsClick}
-            onRowClick={handleClick}
             onAction={handleAction}
             selectionMode={SelectionMode.Multiple}
         />
     );
-};
+});
 
-export default TodoListPage;
+export default MainPage;

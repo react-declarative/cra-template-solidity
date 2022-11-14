@@ -1,67 +1,66 @@
-import { observer } from "mobx-react";
+import React from 'react';
+import { observer } from 'mobx-react';
 
-import { Switch, Scaffold } from "react-declarative";
+import { makeStyles } from '../styles/makeStyles';
+import { Theme } from '@mui/material';
+
+import { Switch } from 'react-declarative';
 
 import Box from '@mui/material/Box';
+import Backdrop from '@mui/material/Backdrop';
+import CssBaseline from '@mui/material/CssBaseline';
+import LinearProgress from '@mui/material/LinearProgress';
 import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
 
-import UserInfo from "./common/UserInfo";
+import routes from '../config/routes';
 
-import history from "../helpers/history";
+import ioc from '../lib/ioc';
 
-import useLoader from "../hooks/useLoader";
-
-import routes from "../config/routes";
-import sidemenu from "../config/sidemenu";
-import scaffoldmenu from "../config/scaffoldmenu";
-
-const Loader = () => (
-  <Box
-    sx={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      height: "100vh",
-      width: "100vw",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 9999,
-      background: (theme) => theme.palette.background.paper,
-    }}
-  >
-    <CircularProgress />
-  </Box>
-);
+const useStyles = makeStyles()({
+  loaderBar: {
+    marginBottom: -4,
+  },
+});
 
 const Fragment = () => <></>;
 
 const App = observer(() => {
-  const { loader, setLoader } = useLoader();
-  const handleLoadStart = () => setLoader(true);
-  const handleLoadEnd = () => setLoader(false);
+  const { classes } = useStyles();
   return (
-    // TODO: <Scaffold payload={currentUser.id}
-    //                 ^^^^^^^^^^^^^^^^^^^^^^^^
-    <Scaffold
-      dense
-      loaderLine={loader}
-      options={sidemenu}
-      actions={scaffoldmenu}
-      Loader={Loader}
-      BeforeSearch={UserInfo}
-      onOptionClick={(name) => history.push(name)}
-    >
+    <Box>
+      {ioc.layoutService.hasAppbarLoader && (
+        <Box className={classes.loaderBar}>
+          <LinearProgress color="secondary" />
+        </Box>
+      )}
+      {ioc.layoutService.hasModalLoader && (
+        <Backdrop
+          sx={{
+            zIndex: (theme: Theme) => theme.zIndex.drawer + 1,
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 3,
+          }}
+          open={ioc.layoutService.hasModalLoader}
+        >
+          <CircularProgress />
+          <Typography variant="body1">
+            Please approve MetaMask confirmation
+          </Typography>
+        </Backdrop>
+      )}
+      <CssBaseline />
       <Switch
         Loader={Fragment}
-        history={history}
+        history={ioc.routerService}
         items={routes}
-        onLoadStart={handleLoadStart}
-        onLoadEnd={handleLoadEnd}
+        onLoadStart={() => ioc.layoutService.setAppbarLoader(true)}
+        onLoadEnd={() => ioc.layoutService.setAppbarLoader(false)}
+        throwError
       />
-    </Scaffold>
+    </Box>
   );
 });
 

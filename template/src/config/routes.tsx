@@ -1,25 +1,60 @@
-import { ISwitchItem } from 'react-declarative';
+import { ISwitchItem } from "react-declarative";
 
-import DashboardPage from '../pages/DashboardPage';
-import TodoListPage from '../pages/TodoListPage';
-import TodoOnePage from '../pages/TodoOnePage';
+import ConnectPage from "../pages/ConnectPage";
+import PermissionPage from "../pages/PermissionPage";
+import NoMetamaskPage from "../pages/NoMetamaskPage";
+import NotDeployedPage from "../pages/NotDeployedPage";
+import ErrorPage from "../pages/ErrorPage";
+import MainPage from "../pages/MainPage";
+
+import ioc from "../lib/ioc";
 
 export const routes: ISwitchItem[] = [
   {
-    path: '/',
-    redirect: '/dashboard'
+    path: "/",
+    redirect: "/connect-page",
   },
   {
-    path: '/dashboard',
-    element: DashboardPage,
+    path: "/connect-page",
+    element: ConnectPage,
+    prefetch: () => ioc.ethersService.prefetch(),
+    redirect: () => {
+      let isOk = true;
+      isOk = isOk && ioc.ethersService.isMetamaskAvailable;
+      isOk = isOk && ioc.ethersService.isProviderConnected;
+      isOk = isOk && ioc.ethersService.isAccountEnabled;
+      if (isOk) {
+        return "/main-page";
+      }
+      return null;
+    },
   },
   {
-    path: '/todos',
-    element: TodoListPage,
+    path: "/main-page",
+    element: MainPage,
+    prefetch: () => ioc.contractService.prefetch(),
+    redirect: () => {
+      if (!ioc.contractService.isContractConnected) {
+        return "/notdeployed-page";
+      }
+      return null;
+    },
   },
   {
-    path: '/todos/:id',
-    element: TodoOnePage,
+    path: "/permission-page",
+    element: PermissionPage,
+  },
+  {
+    path: "/nometamask-page",
+    element: NoMetamaskPage,
+  },
+  {
+    path: "/notdeployed-page",
+    element: NotDeployedPage,
+  },
+  {
+    path: "/error-page",
+    element: ErrorPage,
   },
 ];
 

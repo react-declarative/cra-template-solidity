@@ -46,3 +46,5 @@ module.exports = {
     }),
   ],
 };
+
+console.log(path.join(__dirname, "./env/webpack.env"),)
