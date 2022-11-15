@@ -1,8 +1,10 @@
 <img src="./docs/logo.svg" height="75px" align="right">
 
-# cra-template-solidity
+# ⚛️ cra-template-solidity
 
 > A Ethereum starter kit for rapid development of the proof of concept solidity app
+
+[![npm](https://img.shields.io/npm/v/cra-template-solidity.svg?style=flat-square)](https://npmjs.org/package/cra-template-solidity)
 
 A starter kit build especially for rapid smart contract development in [Remix IDE](https://remix-project.org/). Once you wrote your Solidity smart contract in Remix you could easely deploy it into global [testnet](https://ethereum.org/en/developers/docs/networks/) or local [Ganache](https://trufflesuite.com/ganache/) blockchain [by using a UI](https://www.linkedin.com/pulse/using-ganache-ethereum-emulator-metamask-farhan-khan/). After that simple copy and paste smart conract address into [params.ts](./template/src/config/params.ts)
 
