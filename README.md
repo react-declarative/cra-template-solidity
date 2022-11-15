@@ -53,7 +53,7 @@ export { default as CC_CONTRACT_ABI } from "../contract/ABI.json";
 
 > Solidity
 
-```sol
+```solidity
 
 // SPDX-License-Identifier: GPL-3.0
 
