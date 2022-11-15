@@ -10,8 +10,18 @@ A starter kit build especially for rapid smart contract development in [Remix ID
 
 ## Usage
 
+> Create an app from template
+
 ```bash
 npx create-react-app . --template=solidity
+```
+
+> Deploy smart contract to [Ganache](https://trufflesuite.com/ganache/) and update [config file](./template/src/config/params.ts) ([also update ABI if you changed it](https://www.geeksforgeeks.org/application-binary-interfaceabi-in-ethereum-virtual-machine/))
+
+```tsx
+export const CC_CONTRACT_ADDRESS = /*process.env.REACT_APP_CONTRACT ||*/ '0xec7e48D6Fb993d532B0aA2E0393461680D7ab83f';
+export const CC_APP_NAME = 'HashApp';
+export { default as CC_CONTRACT_ABI } from "../contract/ABI.json";
 ```
 
 <img src="./docs/saturn.svg" height="25px" align="right">
