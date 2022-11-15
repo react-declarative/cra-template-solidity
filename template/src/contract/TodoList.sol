@@ -40,12 +40,16 @@ contract TodoList {
         todo.content = _content;
         todo.owner = msg.sender;
         todoMap[currentId] = todo;
+        emit update();
     }
 
     function removeTodo(uint256 _id) public {
         Todo storage todo = todoMap[_id];
         require(todo.owner == msg.sender, 'You are not the owner of that todo');
         todo.isDeleted = true;
+        emit update();
     }
+
+    event update();
 
 }

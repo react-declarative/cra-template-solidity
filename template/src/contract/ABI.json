@@ -26,6 +26,12 @@
 		"type": "function"
 	},
 	{
+		"anonymous": false,
+		"inputs": [],
+		"name": "update",
+		"type": "event"
+	},
+	{
 		"inputs": [],
 		"name": "lastTodoId",
 		"outputs": [

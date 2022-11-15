@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { inject, singleshot } from "react-declarative";
+import { inject, singleshot, Subject } from "react-declarative";
 
 import {
     ethers,
@@ -19,6 +19,8 @@ type IContract = BaseContract & Record<string, (...args: any[]) => Promise<any>>
 export class ContractService {
 
     readonly ethersService = inject<EthersService>(TYPES.ethersService);
+
+    readonly updateSubject = new Subject<void>();
 
     private _instance: IContract = null as never;
 
@@ -70,6 +72,7 @@ export class ContractService {
                 this.ethersService.getSigner(),
             ) as IContract;
             runInAction(() => this._instance = instance);
+            instance.on('update', this.updateSubject.next);
         } catch (e) {
             console.warn('ContractService prefetch failed', e);
         }
