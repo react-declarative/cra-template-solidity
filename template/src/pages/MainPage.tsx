@@ -78,7 +78,7 @@ const rowActions = [
     },
 ];
 
-const heightRequest = () => window.innerHeight - 10;
+const heightRequest = () => window.innerHeight - 20;
 
 export const MainPage = observer(() => {
 

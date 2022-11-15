@@ -30,19 +30,31 @@ export class ContractService {
         makeAutoObservable(this);
     };
 
-    name = singleshot(async () => String(await this._instance.name()));
-    symbol = singleshot(async () => String(await this._instance.symbol()));
-    mintWave = singleshot(async () => Number((await this._instance.mintWave()).toString()));
-    maxSupply = singleshot(async () => Number((await this._instance.maxSupply()).toString()));
-    totalSupply = singleshot(async () => Number((await this._instance.totalSupply()).toString()));
-    maxMintAmountPerTx = singleshot(async () =>  Number((await this._instance.maxMintAmountPerTx()).toString()));
-    tokenPrice = singleshot(async () =>  Number((await this._instance.cost()).toString()));
-    isPaused = singleshot(async () => Boolean(await this._instance.paused()));
+    getLastTodoId = async () => Number(await this._instance.lastTodoId());
 
-    mintTokens = async (amount: number, value: number) => {
-        return await this._instance.mint(amount.toString(), {
-            value: value.toString(),
-        });
+    getTodoById = async (id: number) => {
+        const todoItem = await this._instance.todoMap(id);
+        return {
+            id: Number(todoItem.id),
+            content: String(todoItem.content),
+            owner: String(todoItem.owner),
+            isDeleted: Boolean(todoItem.isDeleted),
+        };
+    };
+
+    addTodo = async (content: string) => await this._instance.addTodo(content);
+
+    removeTodoById = async (id: number) => await this._instance.removeTodo(id);
+
+    todosOfOwner = async () => {
+        const todoIds: number[] = (await this._instance.todosOfOwner()).map((bigint: any) => Number(bigint));
+        return await Promise.all(todoIds.map((id) => this.getTodoById(id)));
+    };
+
+    todosOfEveryone = async () => {
+        const lastId = await this.getLastTodoId();
+        const totalIds = [...Array(lastId).keys()];
+        return await Promise.all(totalIds.map((id) => this.getTodoById(id)));
     };
 
     prefetch = singleshot(async () => {

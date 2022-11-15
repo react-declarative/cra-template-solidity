@@ -52,14 +52,16 @@ const App = observer(() => {
         </Backdrop>
       )}
       <CssBaseline />
-      <Switch
-        Loader={Fragment}
-        history={ioc.routerService}
-        items={routes}
-        onLoadStart={() => ioc.layoutService.setAppbarLoader(true)}
-        onLoadEnd={() => ioc.layoutService.setAppbarLoader(false)}
-        throwError
-      />
+      <Box p={1}>
+        <Switch
+          Loader={Fragment}
+          history={ioc.routerService}
+          items={routes}
+          onLoadStart={() => ioc.layoutService.setAppbarLoader(true)}
+          onLoadEnd={() => ioc.layoutService.setAppbarLoader(false)}
+          throwError
+        />
+      </Box>
     </Box>
   );
 });
