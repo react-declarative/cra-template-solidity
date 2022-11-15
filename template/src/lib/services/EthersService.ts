@@ -33,7 +33,7 @@ export class EthersService {
     };
 
     get provider() {
-        return window.ethereum;
+        return this._provider;
     };
 
     constructor() {
