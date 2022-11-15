@@ -36,7 +36,7 @@ export { default as CC_CONTRACT_ABI } from "../contract/ABI.json";
 
 3. **Contract deployment status check by address**
 
-4. **Sample counter smart contract**
+4. **Sample todo-list smart contract**
 
 5. **Simple config by variable with smart contract address in source code**
 
