@@ -70,12 +70,12 @@ contract TodoList {
         bool isDeleted;
     }
 
-    uint256 public lastTodoId;
+    uint256 public pendingTodoId;
 
     mapping (uint256 => Todo) public todoMap;
 
     function todosOfOwner() public view returns (uint256[] memory) {
-        uint256 todosLength = lastTodoId + 1;
+        uint256 todosLength = pendingTodoId + 1;
         uint256[] memory ownedTodoDirtyIds = new uint256[](todosLength);
         uint256 ownedTodoIdx = 0;
         for (uint id = 0; id != todosLength; id++) {
@@ -93,7 +93,7 @@ contract TodoList {
     }
 
     function addTodo(string memory _content) public {
-        uint256 currentId = lastTodoId++;
+        uint256 currentId = pendingTodoId++;
         Todo memory todo;
         todo.id = currentId;
         todo.content = _content;
@@ -133,7 +133,7 @@ type IContract = BaseContract & Record<string, (...args: any[]) => Promise<any>>
 
 export class ContractService {
 
-    readonly ethersService = inject<EthersService>(TYPES.ethersService);
+    private readonly ethersService = inject<EthersService>(TYPES.ethersService);
 
     private _instance: IContract = null as never;
 
@@ -145,7 +145,7 @@ export class ContractService {
         makeAutoObservable(this);
     };
 
-    getLastTodoId = async () => Number(await this._instance.lastTodoId());
+    getPendingTodoId = async () => Number(await this._instance.pendingTodoId());
 
     getTodoById = async (id: number) => {
         const todoItem = await this._instance.todoMap(id);
@@ -167,8 +167,8 @@ export class ContractService {
     };
 
     todosOfEveryone = async () => {
-        const lastId = await this.getLastTodoId();
-        const totalIds = [...Array(lastId).keys()];
+        const pendingId = await this.getPendingTodoId();
+        const totalIds = [...Array(pendingId).keys()];
         return await Promise.all(totalIds.map((id) => this.getTodoById(id)));
     };
 

@@ -33,7 +33,7 @@
 	},
 	{
 		"inputs": [],
-		"name": "lastTodoId",
+		"name": "pendingTodoId",
 		"outputs": [
 			{
 				"internalType": "uint256",

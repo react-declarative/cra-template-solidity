@@ -18,9 +18,9 @@ type IContract = BaseContract & Record<string, (...args: any[]) => Promise<any>>
 
 export class ContractService {
 
-    readonly ethersService = inject<EthersService>(TYPES.ethersService);
+    private readonly ethersService = inject<EthersService>(TYPES.ethersService);
 
-    readonly updateSubject = new Subject<void>();
+    public readonly updateSubject = new Subject<void>();
 
     private _instance: IContract = null as never;
 
@@ -32,7 +32,7 @@ export class ContractService {
         makeAutoObservable(this);
     };
 
-    getLastTodoId = async () => Number(await this._instance.lastTodoId());
+    getPendingTodoId = async () => Number(await this._instance.pendingTodoId());
 
     getTodoById = async (id: number) => {
         const todoItem = await this._instance.todoMap(id);
@@ -54,8 +54,8 @@ export class ContractService {
     };
 
     todosOfEveryone = async () => {
-        const lastId = await this.getLastTodoId();
-        const totalIds = [...Array(lastId).keys()];
+        const pendingId = await this.getPendingTodoId();
+        const totalIds = [...Array(pendingId).keys()];
         return await Promise.all(totalIds.map((id) => this.getTodoById(id)));
     };
 

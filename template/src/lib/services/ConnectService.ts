@@ -9,9 +9,9 @@ import TYPES from "../types";
 
 export class ConnectPageService {
 
-    readonly ethersService = inject<EthersService>(TYPES.ethersService);
-    readonly routerService = inject<RouterService>(TYPES.routerService);
-    readonly layoutService = inject<LayoutService>(TYPES.layoutService);
+    private readonly ethersService = inject<EthersService>(TYPES.ethersService);
+    private readonly routerService = inject<RouterService>(TYPES.routerService);
+    private readonly layoutService = inject<LayoutService>(TYPES.layoutService);
 
     constructor() {
         makeAutoObservable(this);

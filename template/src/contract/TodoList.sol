@@ -11,12 +11,12 @@ contract TodoList {
         bool isDeleted;
     }
 
-    uint256 public lastTodoId;
+    uint256 public pendingTodoId;
 
     mapping (uint256 => Todo) public todoMap;
 
     function todosOfOwner() public view returns (uint256[] memory) {
-        uint256 todosLength = lastTodoId + 1;
+        uint256 todosLength = pendingTodoId + 1;
         uint256[] memory ownedTodoDirtyIds = new uint256[](todosLength);
         uint256 ownedTodoIdx = 0;
         for (uint id = 0; id != todosLength; id++) {
@@ -34,7 +34,7 @@ contract TodoList {
     }
 
     function addTodo(string memory _content) public {
-        uint256 currentId = lastTodoId++;
+        uint256 currentId = pendingTodoId++;
         Todo memory todo;
         todo.id = currentId;
         todo.content = _content;
