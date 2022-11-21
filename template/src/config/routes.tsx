@@ -5,7 +5,9 @@ import PermissionPage from "../pages/PermissionPage";
 import NoMetamaskPage from "../pages/NoMetamaskPage";
 import NotDeployedPage from "../pages/NotDeployedPage";
 import ErrorPage from "../pages/ErrorPage";
-import MainPage from "../pages/MainPage";
+
+import MainListPage from "../pages/MainListPage";
+import MainOnePage from "../pages/MainOnePage";
 
 import ioc from "../lib/ioc";
 
@@ -31,7 +33,18 @@ export const routes: ISwitchItem[] = [
   },
   {
     path: "/main-page",
-    element: MainPage,
+    element: MainListPage,
+    prefetch: () => ioc.contractService.prefetch(),
+    redirect: () => {
+      if (!ioc.contractService.isContractConnected) {
+        return "/notdeployed-page";
+      }
+      return null;
+    },
+  },
+  {
+    path: "/main-page/:id",
+    element: MainOnePage,
     prefetch: () => ioc.contractService.prefetch(),
     redirect: () => {
       if (!ioc.contractService.isContractConnected) {

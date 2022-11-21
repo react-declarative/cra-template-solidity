@@ -46,6 +46,8 @@ export class ContractService {
 
     addTodo = async (content: string) => await this._instance.addTodo(content);
 
+    setTodoText = async (id: number, content: string) => await this._instance.setTodoText(id, content);
+
     removeTodoById = async (id: number) => await this._instance.removeTodo(id);
 
     todosOfOwner = async () => {

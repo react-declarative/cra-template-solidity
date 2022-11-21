@@ -50,6 +50,13 @@ contract TodoList {
         emit update();
     }
 
+    function setTodoText(uint256 _id, string memory _content) public {
+        Todo storage todo = todoMap[_id];
+        require(todo.owner == msg.sender, 'You are not the owner of that todo');
+        todo.content = _content;
+        emit update();
+    }
+
     event update();
 
 }

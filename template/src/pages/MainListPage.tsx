@@ -82,7 +82,7 @@ const rowActions = [
 
 const heightRequest = () => window.innerHeight - 20;
 
-export const MainPage = observer(() => {
+export const MainListPage = observer(() => {
 
     const listApiRef = useRef<IListApi>(null as never);
 
@@ -136,6 +136,10 @@ export const MainPage = observer(() => {
         }
     };
 
+    const handleClick = (row: any) => {
+        ioc.routerService.push(`/main-page/${row.id}`);
+    };
+
     return (
         <List
             apiRef={listApiRef}
@@ -149,9 +153,10 @@ export const MainPage = observer(() => {
             handler={handler}
             onRowAction={handleRowActionsClick}
             onAction={handleAction}
+            onRowClick={handleClick}
             selectionMode={SelectionMode.Multiple}
         />
     );
 });
 
-export default MainPage;
+export default MainListPage;
