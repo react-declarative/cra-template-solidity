@@ -56,7 +56,6 @@ export { default as CC_CONTRACT_ABI } from "../contract/ABI.json";
 > Solidity
 
 ```solidity
-
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity ^0.8.7;
@@ -75,7 +74,7 @@ contract TodoList {
     mapping (uint256 => Todo) public todoMap;
 
     function todosOfOwner() public view returns (uint256[] memory) {
-        uint256 todosLength = pendingTodoId + 1;
+        uint256 todosLength = pendingTodoId;
         uint256[] memory ownedTodoDirtyIds = new uint256[](todosLength);
         uint256 ownedTodoIdx = 0;
         for (uint id = 0; id != todosLength; id++) {
