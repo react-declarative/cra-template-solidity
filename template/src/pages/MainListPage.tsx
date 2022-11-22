@@ -102,7 +102,11 @@ export const MainListPage = observer(() => {
     });
 
     useEffect(() => ioc.contractService.updateSubject.subscribe(async () => {
-        await listApiRef.current.reload();
+        try {
+            await listApiRef.current.reload();
+        } catch {
+            ioc.alertService.notify('An error acquired while applying new transaction');
+        }
     }), [ioc.contractService.updateSubject]);
 
     const handleRowActionsClick = async (action: string, { id: rowId }: any) => {
