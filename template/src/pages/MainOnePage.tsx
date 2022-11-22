@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { FetchView, Breadcrumbs, One, ActionTrigger, FieldType, TypedField, usePreventLeave, IActionTrigger, IOneApi } from 'react-declarative';
 
@@ -92,19 +92,22 @@ export const TodoOnePage = observer(({
 
     const Content = observer((props: any) => {
 
+        const [todo, setTodo] = useState(props.todo);
+
         const oneApiRef = useRef<IOneApi>(null as never);
 
         const {
             data,
             oneProps,
             beginSave,
-        } = usePreventLeave({
+            afterSave,
+        } = usePreventLeave<ITodoItem>({
             history: ioc.routerService,
             onSave: async () => {
                 ioc.layoutService.setAppbarLoader(true);
                 try {
                     const todoId = parseInt(id);
-                    await ioc.contractService.setTodoText(Number.isNaN(todoId) ? -1 : todoId, data.content);
+                    await ioc.contractService.setTodoText(Number.isNaN(todoId) ? -1 : todoId, todo.content);
                     return true;
                 } catch (e: any) {
                     const { message = 'It looks like token impoty failed with exception. More info in debug console' } = e;
@@ -115,6 +118,7 @@ export const TodoOnePage = observer(({
                     ioc.layoutService.setAppbarLoader(false);
                 }
             },
+            onChange: (todo) => setTodo(todo),
         });
 
         const handleAction = async (action: string) => {
@@ -127,6 +131,7 @@ export const TodoOnePage = observer(({
                         ...(data || props.todo),
                         isDeleted: true,
                     });
+                    afterSave();
                 }
             } catch (e: any) {
                 const { message = 'It looks like token impoty failed with exception. More info in debug console' } = e;
@@ -146,7 +151,7 @@ export const TodoOnePage = observer(({
                     saveDisabled={!data}
                 />
                 <ActionTrigger
-                    payload={data || props.todo}
+                    payload={todo}
                     actions={actions}
                     onAction={handleAction}
                 />

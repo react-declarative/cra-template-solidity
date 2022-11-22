@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-import { List, FieldType, ColumnType, ActionType, TypedField, IColumn, IListAction, useArrayPaginator, usePrompt, SelectionMode, IListApi } from 'react-declarative';
+import { List, FieldType, ColumnType, ActionType, TypedField, IColumn, IListAction, useArrayPaginator, usePrompt, SelectionMode, IListApi, IListRowAction } from 'react-declarative';
 
 import Delete from '@mui/icons-material/Delete';
 import Add from '@mui/icons-material/Add';
@@ -72,10 +72,15 @@ const actions: IListAction[] = [
     }
 ];
 
-const rowActions = [
+const rowActions: IListRowAction[] = [
+    {
+        label: 'Open todo',
+        action: 'open-todo',
+    },
     {
         label: 'Delete todo',
         action: 'remove-action',
+        isVisible: ({ isDeleted }) => !isDeleted,
         icon: Delete,
     },
 ];
@@ -100,12 +105,16 @@ export const MainListPage = observer(() => {
         await listApiRef.current.reload();
     }), [ioc.contractService.updateSubject]);
 
-    const handleRowActionsClick = async (action: string, row: any) => {
+    const handleRowActionsClick = async (action: string, { id: rowId }: any) => {
+        const { getState, setRows } = listApiRef.current;
         ioc.layoutService.setAppbarLoader(true);
         try {
-            if (action === 'remove-action') {
-                await ioc.contractService.removeTodoById(row.id);
-                // await listApiRef.current.reload();
+            if (action === 'open-todo') {
+                ioc.routerService.push(`/main-page/${rowId}`);
+            } else if (action === 'remove-action') {
+                await ioc.contractService.removeTodoById(rowId);
+                const { rows } = getState();
+                setRows(rows.map((row) => row.id === rowId ? { ...row, isDeleted: true } : row));
             }
         } catch {
             ioc.alertService.notify('An error acquired')
@@ -118,9 +127,9 @@ export const MainListPage = observer(() => {
         ioc.layoutService.setAppbarLoader(true);
         try {
             await ioc.contractService.addTodo(content);
-            // await listApiRef.current.reload();
+            ioc.alertService.notify('Waiting for a transaction to be confirmed');
         } catch {
-            ioc.alertService.notify('An error acquired')
+            ioc.alertService.notify('An error acquired');
         } finally {
             ioc.layoutService.setAppbarLoader(false);
         }
