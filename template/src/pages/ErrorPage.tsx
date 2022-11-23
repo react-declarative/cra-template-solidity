@@ -9,24 +9,29 @@ import Box from '@mui/material/Box';
 
 import Logo from '../components/common/Logo';
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
     root: {
-        position: 'relative',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 9999,
+        background: theme.palette.background.default,
         height: '100%',
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
         flexDirection: 'column',
+        gap: 15,
         padding: 15,
     },
     container: {
-        flex: 1,
         minWidth: 375,
         maxWidth: 375,
         padding: 15,
     },
-});
+}));
 
 export const ErrorPage = () => {
     const { classes } = useStyles();

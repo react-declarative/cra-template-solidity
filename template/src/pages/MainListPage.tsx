@@ -85,7 +85,7 @@ const rowActions: IListRowAction[] = [
     },
 ];
 
-const heightRequest = () => window.innerHeight - 20;
+const heightRequest = () => window.innerHeight - 80;
 
 export const MainListPage = observer(() => {
 
