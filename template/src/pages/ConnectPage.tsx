@@ -2,6 +2,8 @@ import React from 'react';
 
 import { makeStyles } from '../styles/makeStyles';
 
+import { PortalView, RevealView } from 'react-declarative';
+
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -33,27 +35,34 @@ const useStyles = makeStyles()((theme) => ({
         maxWidth: 375,
         padding: 15,
     },
+    reveal: {
+        width: 'unset',
+    },
 }));
 
 export const ConnectPage = () => {
     const { classes } = useStyles();
     return (
-        <Box className={classes.root}>
-            <Paper className={classes.container}>
-                <Stack direction='column' gap="15px">
-                    <Logo />
-                    <span>
-                        Please, connect your <strong>MetaMask</strong> wallet <span className="emoji">😃</span><br />
-                    </span>
-                    <Button
-                        variant="contained"
-                        onClick={ioc.connectService.handleConnectClick}
-                    >
-                        Connect wallet
-                    </Button>
-                </Stack>
-            </Paper>
-        </Box>
+        <PortalView>
+            <Box className={classes.root}>
+                <RevealView className={classes.reveal}>
+                    <Paper className={classes.container}>
+                        <Stack direction='column' gap="15px">
+                            <Logo />
+                            <span>
+                                Please, connect your <strong>MetaMask</strong> wallet <span className="emoji">😃</span><br />
+                            </span>
+                            <Button
+                                variant="contained"
+                                onClick={ioc.connectService.handleConnectClick}
+                            >
+                                Connect wallet
+                            </Button>
+                        </Stack>
+                    </Paper>
+                </RevealView>
+            </Box>
+        </PortalView>
     );
 };
 

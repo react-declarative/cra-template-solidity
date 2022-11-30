@@ -2,6 +2,8 @@ import React from 'react';
 
 import { makeStyles } from '../styles/makeStyles';
 
+import { PortalView, RevealView } from 'react-declarative';
+
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -31,6 +33,9 @@ const useStyles = makeStyles()((theme) => ({
         maxWidth: 375,
         padding: 15,
     },
+    reveal: {
+        width: 'unset',
+    },
 }));
 
 export const ConnectPage = () => {
@@ -41,23 +46,27 @@ export const ConnectPage = () => {
     };
 
     return (
-        <Box className={classes.root}>
-            <Paper className={classes.container}>
-                <Stack direction='column' gap="15px">
-                    <Logo />
-                    <span>
-                        It looks like you rejected the wallet connection request <span className="emoji">😐</span><br />
-                        Please reload this page and try again
-                    </span>
-                    <Button
-                        variant="contained"
-                        onClick={handleReload}
-                    >
-                        Reload page
-                    </Button>
-                </Stack>
-            </Paper>
-        </Box>
+        <PortalView>
+            <Box className={classes.root}>
+                <RevealView className={classes.reveal}>
+                    <Paper className={classes.container}>
+                        <Stack direction='column' gap="15px">
+                            <Logo />
+                            <span>
+                                It looks like you rejected the wallet connection request <span className="emoji">😐</span><br />
+                                Please reload this page and try again
+                            </span>
+                            <Button
+                                variant="contained"
+                                onClick={handleReload}
+                            >
+                                Reload page
+                            </Button>
+                        </Stack>
+                    </Paper>
+                </RevealView> 
+            </Box>
+        </PortalView>
     );
 };
 

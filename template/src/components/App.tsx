@@ -45,7 +45,6 @@ export const App = observer(() => {
         onOptionClick={(name) => ioc.routerService.push(name)}
       >
         <Switch
-          animation="none"
           Loader={Fragment}
           history={ioc.routerService}
           items={routes}
