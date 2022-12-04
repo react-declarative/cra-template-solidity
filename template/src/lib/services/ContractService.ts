@@ -4,7 +4,7 @@ import { inject, singleshot, Subject } from "react-declarative";
 import {
     ethers,
     BaseContract,
-    BigNumber,
+    /*BigNumber,*/
 } from "ethers";
 
 import EthersService from "./EthersService";

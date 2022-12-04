@@ -107,7 +107,7 @@ export const MainListPage = observer(() => {
         } catch {
             ioc.alertService.notify('An error acquired while applying new transaction');
         }
-    }), [ioc.contractService.updateSubject]);
+    }), []);
 
     const handleRowActionsClick = async (action: string, { id: rowId }: any) => {
         const { getState, setRows } = listApiRef.current;
