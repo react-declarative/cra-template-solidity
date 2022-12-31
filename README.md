@@ -15,6 +15,12 @@ A starter kit build especially for rapid smart contract development in [Remix ID
 > Create an app from template
 
 ```bash
+yarn create react-app --template cra-template-solidity .
+```
+
+or
+
+```bash
 npx create-react-app . --template=solidity
 ```
 
