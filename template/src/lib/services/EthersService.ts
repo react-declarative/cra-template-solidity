@@ -68,6 +68,27 @@ export class EthersService {
         return this._provider.getCode(address);
     };
 
+    personalSign = async (message: string): Promise<string> => {
+        const account = await this.getAccount();
+        return await window.ethereum.request({
+            params: [message, account],
+            method: "personal_sign",
+            from: account,
+        });
+    };
+
+    validateSign = async (message: string, sign: string): Promise<string | null> => {
+        try {
+            return await window.ethereum.request({
+                params: [message, sign],
+                method: "personal_ecRecover",
+            });
+        } catch (e: unknown) {
+            console.warn(e);
+            return null;
+        }
+    };
+
     private registerWalletEvents = () => {
       window.ethereum.on('accountsChanged', () => {
         window.location.reload();
