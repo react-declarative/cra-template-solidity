@@ -74,7 +74,9 @@ export class ContractService {
                 this.ethersService.getSigner(),
             ) as IContract;
             runInAction(() => this._instance = instance);
-            instance.on('update', this.updateSubject.next);
+            this.ethersService.provider.once("block", () => {
+                instance.on('update', this.updateSubject.next);
+            });
         } catch (e) {
             console.warn('ContractService prefetch failed', e);
         }
