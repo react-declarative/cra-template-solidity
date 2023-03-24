@@ -77,6 +77,25 @@ export class EthersService {
         });
     };
 
+    addTestChain = (chainId: string | number = 1337) => {
+        if (!String(chainId).includes('0x')) {
+            chainId = `0x${chainId.toString(16)}`;
+        }
+        window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+                chainId,
+                rpcUrls: ["http://localhost:8545"],
+                chainName: "Local GETH",
+                nativeCurrency: {
+                    name: "GETH",
+                    symbol: "GETH",
+                    decimals: 18
+                },
+            }]
+        });
+    };
+
     validateSign = async (message: string, sign: string): Promise<string | null> => {
         try {
             return await window.ethereum.request({
@@ -90,12 +109,12 @@ export class EthersService {
     };
 
     private registerWalletEvents = () => {
-      window.ethereum.on('accountsChanged', () => {
-        window.location.reload();
-      });
-      window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-      });
+        window.ethereum.on('accountsChanged', () => {
+            window.location.reload();
+        });
+        window.ethereum.on('chainChanged', () => {
+            window.location.reload();
+        });
     };
 
     prefetch = singleshot(async () => {
