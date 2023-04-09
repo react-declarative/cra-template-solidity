@@ -39,7 +39,7 @@ export const App = observer(() => {
     <>
       <Scaffold
         dense
-        loaderLine={ioc.layoutService.hasAppbarLoader}
+        loadingLine={ioc.layoutService.hasAppbarLoader}
         options={sidemenu}
         Loader={Loader}
         onOptionClick={(name) => ioc.routerService.push(name)}
