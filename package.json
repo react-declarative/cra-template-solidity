@@ -1,6 +1,6 @@
 {
   "name": "cra-template-solidity",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "A Ethereum starter kit for rapid development of the proof of concept solidity app",
   "keywords": [
     "react",
