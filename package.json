@@ -1,6 +1,6 @@
 {
   "name": "cra-template-solidity",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "A Ethereum starter kit for rapid development of the proof of concept solidity app",
   "keywords": [
     "react",
@@ -66,7 +66,7 @@
     "notistack": "2.0.5",
     "path-to-regexp": "6.2.0",
     "react": "18.2.0",
-    "react-declarative": "2.2.162",
+    "react-declarative": "2.2.166",
     "react-dom": "18.2.0",
     "react-window": "1.8.7",
     "resize-observer-polyfill": "1.5.1",
