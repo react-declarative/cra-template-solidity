@@ -13,7 +13,7 @@ A starter kit build especially for rapid smart contract development in [Remix ID
 ## Contribute
 
 > [!IMPORTANT]
-> There is made by using [react-declarative](https://github.com/react-declarative/react-declarative) to solve your problems. **⭐Star** and **💻Fork** It on github will be appreciated
+> Made by using [react-declarative](https://github.com/react-declarative/react-declarative) to solve your problems. **⭐Star** and **💻Fork** It on github will be appreciated
 
 ## Usage
 
